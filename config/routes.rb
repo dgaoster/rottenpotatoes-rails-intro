@@ -16,11 +16,6 @@ Rails.application.routes.draw do
 
   resources :movies
   
-  # get '/sort/title', to: 'movies#sort_title', :as => :sort_title
-  # get '/sort/rating', to: 'movies#sort_rating', :as => :sort_rating
-  
-  get '/sort/:sort_by', to: 'movies#index', :as => :sort
-  
   # Example resource route with options:
   #   resources :products do
   #     member do

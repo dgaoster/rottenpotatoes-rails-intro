@@ -12,12 +12,17 @@ class MoviesController < ApplicationController
   end
 
   def index
-    # @all_ratings = Movie.list_all_ratings
-    # ratings = params[:ratings].blank? ? [] : params[:ratings].keys
-    # @movies = Movie.where({rating: ratings})
     @sort = params[:sort_by]
-    @movies = Movie.order(sort).all
-    #@movies = Movie.all
+    @movies = Movie.order(@sort)
+    
+    if params[:ratings]
+      @selected_ratings = params[:ratings]
+      @movies = Movie.where({:rating => @selected_ratings.keys})
+    # elsif !params[:ratings]
+    #   @selected_ratings = []
+    end
+  
+    @all_ratings = Movie.list_all_ratings
 
   end
 
@@ -49,19 +54,19 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
   
-  def sort
-    # @all_ratings = Movie.list_all_ratings
-    sort_by = params[:sort_by]
-    @movies = Movie.order(sort_by)
-    @sort_type = "title"
-    render :index
-  end
+  # def sort
+  #   # @all_ratings = Movie.list_all_ratings
+  #   sort_by = params[:sort_by]
+  #   @movies = Movie.order(sort_by)
+  #   @sort_type = "title"
+  #   render :index
+  # end
   
-  def sort_rating
-    # @all_ratings = Movie.list_all_ratings
-    @movies = Movie.order(:rating)
-    @sort_type = "rating"
-    render :index
-  end
+  # def sort_rating
+  #   # @all_ratings = Movie.list_all_ratings
+  #   @movies = Movie.order(:rating)
+  #   @sort_type = "rating"
+  #   render :index
+  # end
 
 end
