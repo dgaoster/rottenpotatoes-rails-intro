@@ -8,16 +8,23 @@ class MoviesController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
+    
   end
 
   def index
-    @movies = Movie.all
+    @all_ratings = Movie.list_all_ratings
+    #byebug
+    ratings = params[:ratings].blank? ? [] : params[:ratings].keys
+    # byebug
+    @movies = Movie.where({rating: ratings})
+    #byebug
+
   end
 
   def new
     # default: render 'new' template
   end
-
+ 
   def create
     @movie = Movie.create!(movie_params)
     flash[:notice] = "#{@movie.title} was successfully created."
@@ -43,12 +50,14 @@ class MoviesController < ApplicationController
   end
   
   def sort_title
+    @all_ratings = Movie.list_all_ratings
     @movies = Movie.order(:title)
     @sort_type = "title"
     render :index
   end
   
   def sort_rating
+    @all_ratings = Movie.list_all_ratings
     @movies = Movie.order(:rating)
     @sort_type = "rating"
     render :index
