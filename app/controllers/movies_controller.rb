@@ -1,3 +1,4 @@
+#Partners: davgao@berkeley.edu, 
 class MoviesController < ApplicationController
 
   def movie_params
@@ -23,6 +24,7 @@ class MoviesController < ApplicationController
     end
   
     @all_ratings = Movie.list_all_ratings
+    render :index
 
   end
 
@@ -54,19 +56,4 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
   
-  # def sort
-  #   # @all_ratings = Movie.list_all_ratings
-  #   sort_by = params[:sort_by]
-  #   @movies = Movie.order(sort_by)
-  #   @sort_type = "title"
-  #   render :index
-  # end
-  
-  # def sort_rating
-  #   # @all_ratings = Movie.list_all_ratings
-  #   @movies = Movie.order(:rating)
-  #   @sort_type = "rating"
-  #   render :index
-  # end
-
 end
