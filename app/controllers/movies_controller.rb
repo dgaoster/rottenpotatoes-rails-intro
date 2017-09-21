@@ -1,4 +1,4 @@
-#Partners: davgao@berkeley.edu, 
+# Partners: davgao@berkeley.edu, justin.zhong@berkeley.edu
 class MoviesController < ApplicationController
 
   def movie_params
@@ -23,33 +23,17 @@ class MoviesController < ApplicationController
     if @sort
       session[:sort] = @sort
     end
-    #byebug
     
-    
-    # if session.include? :ratings and !@selected_ratings and !@sort # use ratings from session
-    #   #@movies = Movie.where({:rating => session[:selected_ratings].keys}).order(@sort)
-    #   @selected_ratings = session[:ratings]
-    #   @sort = session[:sort]
-    #   redirect_to movies_path({sort_by: @sort, ratings: @selected_ratings})
-    #   # else
-    # end
     
     if session.include? :ratings and params[:ratings].nil?
       @selected_ratings = session[:ratings]
       if !params.include? :sort_by
         @sort = session[:sort]
       end
-      # params[:ratings] = @selected_ratings
-      # redirect_to movies_path(params)
+
       redirect_to movies_path({sort_by: @sort, ratings: @selected_ratings})
 
     end
-    
-    # Sort by @sort if not nilc
-    
-    # if @selected_ratings and @sort
-    #   @movies = Movie.where({:rating => @selected_ratings.keys}).order(@sort)
-    # end
     
     if @sort
       @movies = Movie.order(@sort)
@@ -61,17 +45,6 @@ class MoviesController < ApplicationController
     else 
         @movies = Movie.all.order(@sort)
     end
-    
-      
-    # # Filter by ratings if not nil
-    # if @selected_ratings
-    # end 
-    
-    # if @sort and @selected_ratings
-      
-    # else
-
-    # end
     
     @all_ratings = Movie.list_all_ratings
 
